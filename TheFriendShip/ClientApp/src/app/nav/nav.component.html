@@ -1,6 +1,7 @@
 <div style="height: 100vh;">
   <mat-toolbar color="primary">
     <mat-toolbar-row>
+
       <span>The Friend Ship</span>
       <span class="example-spacer"></span>
       <div fxShow="true" fxHide.lt-md="true">      
@@ -11,9 +12,9 @@
           Friend lists
         </a>
       </div>
-
-      
+     
       <span class="fill-remaining-space"></span>
+
       <div class="login-field" fxShow="true" fxHide.lt-md="true">
         <mat-form-field class="usrpwd">
           <input matInput placeholder="Username" />
@@ -27,8 +28,8 @@
       <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
         <mat-icon>menu</mat-icon>
       </button>
-
     </mat-toolbar-row>
+
   </mat-toolbar>
   <mat-sidenav-container fxFlexFill>
     <mat-sidenav #sidenav position="end">
@@ -39,6 +40,7 @@
         <a href="#" mat-list-item>
          The Friend lists
         </a>
+
         <form class="example-form">
           <mat-form-field class="example-full-width">
             <input matInput placeholder="Username">
@@ -48,6 +50,7 @@
           </mat-form-field>
           <button class="loginInput" mat-button color="primary">Login</button>
         </form>
+
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content fxFlexFill></mat-sidenav-content>
