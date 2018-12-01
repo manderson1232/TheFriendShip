@@ -5,6 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using TheFriendShip.Models;
+using Microsoft.AspNetCore.Identity;
+using TheFriendShip.Data;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
 
 namespace TheFriendShip
 {
@@ -20,12 +27,28 @@ namespace TheFriendShip
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<TheFriendShipDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("TheFriendShipDbContext")));
+
+            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<TheFriendShipDbContext>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
+            });
+            var key = Encoding.ASCII.GetBytes("Secret Testing Key");
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options => {
+                options.TokenValidationParameters = new
+                Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
             });
         }
 
@@ -52,6 +75,8 @@ namespace TheFriendShip
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
             });
+
+            app.UseAuthentication();
 
             app.UseSpa(spa =>
             {
