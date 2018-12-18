@@ -1,9 +1,29 @@
 .fill-remaining-space {
-  /* This fills the remaining space, by using flexbox. 
-     Every toolbar row uses a flexbox row layout. */
   flex: 1 1 auto;
 }
 
+.nav-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.nav-is-mobile .nav-toolbar {
+  position: fixed;
+  z-index: 2;
+}
+
+.nav-side-container {
+  flex: 1;
+}
+
+.nav-is-mobile .nav-side-container {
+  flex: 1 0 auto;
+}
 
 .usrpwd {
   font-size: 12px;
@@ -15,8 +35,6 @@
   padding-left: 16px;
   padding-right: 16px;
 }
-
-
 
 .mat-button, .mat-icon-button, .mat-stroked-button {
   outline: thin;

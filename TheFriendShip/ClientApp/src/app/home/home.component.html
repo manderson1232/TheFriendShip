@@ -1,0 +1,6 @@
+<router-outlet></router-outlet>
+<form (submit)="submit(myform)" #myform="ngForm">
+  <input placeholder="User name" name="username" [(ngModel)]="model.username" required />
+  <input type="password" placeholder="Password" name="password" [(ngModel)]="model.password" required />
+  <button>Login</button>
+</form>

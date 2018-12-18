@@ -14,5 +14,7 @@ namespace TheFriendShip.Data
         {
         }
         //public DbSet<TheFriendShip.Models.Product> Product { get; set; }
+        public DbSet<User> Review { get; set; }
+        public DbSet<Photo> Photos { get; set; }
     }
 }

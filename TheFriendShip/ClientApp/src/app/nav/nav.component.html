@@ -1,58 +1,47 @@
-<div style="height: 100vh;">
-  <mat-toolbar color="primary">
+<div class="nav-container" [class.nav-is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="nav-toolbar">
     <mat-toolbar-row>
 
-      <span>The Friend Ship</span>
+      <span>Friend Ship</span>
       <span class="example-spacer"></span>
-      <div fxShow="true" fxHide.lt-md="true">      
+      <div fxShow="true" fxHide.lt-md="true">
+
         <a href="#" mat-button>
           Matches
         </a>
         <a href="#" mat-button>
-          Friend lists
+          Friend list
         </a>
       </div>
-     
       <span class="fill-remaining-space"></span>
-
-      <div class="login-field" fxShow="true" fxHide.lt-md="true">
-        <mat-form-field class="usrpwd">
-          <input matInput placeholder="Username" />
-        </mat-form-field>
-        <mat-form-field class="usrpwd">
-          <input matInput placeholder="Password" />
-        </mat-form-field>
-        <button class="loginInput" mat-button>Login</button>
-      </div>
-
+      <app-login></app-login>
       <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
         <mat-icon>menu</mat-icon>
       </button>
     </mat-toolbar-row>
 
+
   </mat-toolbar>
-  <mat-sidenav-container fxFlexFill>
+
+  <mat-sidenav-container class="nav-side-container" fxFlexFill>
     <mat-sidenav #sidenav position="end">
       <mat-nav-list>
         <a href="#" mat-list-item>
           Matches
         </a>
         <a href="#" mat-list-item>
-         The Friend lists
+          Friend lists
         </a>
-
-        <form class="example-form">
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Username">
-          </mat-form-field>
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Password">
-          </mat-form-field>
-          <button class="loginInput" mat-button color="primary">Login</button>
-        </form>
-
+        <a href="/login" mat-list-item>
+          Login
+        </a>
+        <a href="/register" mat-list-item>
+          Register
+        </a>
       </mat-nav-list>
     </mat-sidenav>
-    <mat-sidenav-content fxFlexFill></mat-sidenav-content>
+    <mat-sidenav-content fxFlexFill>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
