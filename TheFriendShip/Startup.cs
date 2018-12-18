@@ -27,11 +27,26 @@ namespace TheFriendShip
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+                
             services.AddDbContext<TheFriendShipDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("TheFriendShipDbContext")));
 
-            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<TheFriendShipDbContext>();
+            services.AddIdentity<User, IdentityRole>(o =>
+                {
+                o.Password.RequireDigit = false;
+                o.Password.RequireLowercase = false;
+                o.Password.RequireUppercase = false;
+                o.Password.RequireNonAlphanumeric = false;
+                o.Password.RequiredLength = 4;
+                })
+                .AddEntityFrameworkStores<TheFriendShipDbContext>()
+                .AddSignInManager<SignInManager<User>>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddJsonOptions(opt =>
+                {
+                   opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                });
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
