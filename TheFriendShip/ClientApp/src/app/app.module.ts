@@ -1,24 +1,32 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './modules/material.module';
-//import { from } from 'rxjs';
+import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
+import { RegisterComponent } from './register/register.component';
+import { Routes, RouterModule } from '@angular/router';
+import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { LoginPageComponent } from './login-page/login-page.component';
 
-const appRoutes: Routes = [
-  
-]
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent,   
+    NavComponent,
+    LoginComponent,
+    HomeComponent,
+    RegisterComponent,
+    LoginPageComponent
   ],
   imports: [
     BrowserModule,
@@ -26,8 +34,13 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,   
     MaterialModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes),
-    FormsModule
+    FormsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:*', 'https://thefriendshipapp.azurewebsites.net/api/auth/login'],
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
