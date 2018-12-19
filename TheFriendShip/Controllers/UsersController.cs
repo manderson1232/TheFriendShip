@@ -9,7 +9,7 @@ namespace TheFriendShip.Controllers
 {
     [Produces("application/json")]
     [Route("api/users")]
-    //[Authorize]
+    [Authorize]
     public class UsersController : Controller
     {
         private readonly IUserRepository _users;
