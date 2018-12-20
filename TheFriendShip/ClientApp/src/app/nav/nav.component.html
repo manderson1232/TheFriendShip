@@ -45,3 +45,20 @@
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
+
+<!--Need to change to fit nav component criteria for filtering by gender-->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+<div ng-app="testApp" ng-controller="testCtrl as test">
+  <select name="" id="" ng-model="test.filterByGender" ng-change="test.setFlag(test.filterByGender)">
+    <option value="">By Gender</option>
+    <option value="female">Female</option>
+    <option value="male">Male</option>
+  </select>
+  <table>
+    <tr ng-repeat="subject in test.subjects |filter:{gender:test.filterByGender}:test.flag">
+      <td>{{subject.gender}}</td>
+    </tr>
+  </table>
+
+
+</div>

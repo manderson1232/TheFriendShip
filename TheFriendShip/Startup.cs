@@ -65,6 +65,7 @@ namespace TheFriendShip
                     ValidateAudience = false
                 };
             });
+            services.AutoMapper
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
